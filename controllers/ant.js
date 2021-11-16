@@ -1,31 +1,31 @@
-var Gas = require('../models/gas');
-// List of all Gass
-exports.gas_list = function (req, res) {
-    res.send('NOT IMPLEMENTED: Gas list');
+var Ant = require('../models/ant');
+// List of all ants
+exports.ant_list = function (req, res) {
+    res.send('NOT IMPLEMENTED: ant list');
 };
-// for a specific Gas.
-// for a specific Gas.
-exports.gas_detail = async function(req, res) {
+// for a specific ant.
+// for a specific ant.
+exports.ant_detail = async function(req, res) {
     console.log("detail" + req.params.id)
     try {
-    result = await Gas.findById( req.params.id)
+    result = await Ant.findById( req.params.id)
     res.send(result)
     } catch (error) {
     res.status(500)
     res.send(`{"error": document for id ${req.params.id} not found`);
     }
    };
-// Handle Gas create on POST.
-exports.gas_create_post = async function (req, res) {
+// Handle ant create on POST.
+exports.ant_create_post = async function (req, res) {
     console.log(req.body)
-    let document = new Gas();
+    let document = new Ant();
     // We are looking for a body, since POST does not have query parameters.
     // Even though bodies can be in many different formats, we will be picky
     // and require that it be a json object
-    // {"gas_type":"regular", "quantity":13, "cost":43.56}
-    document.gas_type = req.body.gas_type;
-    document.quantity = req.body.quantity;
-    document.cost = req.body.cost;
+    // {"count":"regular", "type":13, "size":43.56}
+    document.count = req.body.count;
+    document.type = req.body.type;
+    document.size = req.body.size;
     try {
         let result = await document.save();
         res.send(result);
@@ -34,11 +34,11 @@ exports.gas_create_post = async function (req, res) {
         res.send(`{"error": ${err}}`);
     }
 };
-// Handle Gas delete on DELETE.
-exports.gas_delete = async function(req, res) {
+// Handle ant delete on DELETE.
+exports.ant_delete = async function(req, res) {
     console.log("delete " + req.params.id)
     try {
-    result = await Gas.findByIdAndDelete( req.params.id)
+    result = await Ant.findByIdAndDelete( req.params.id)
     console.log("Removed " + result)
     res.send(result)
     } catch (err) {
@@ -46,17 +46,17 @@ exports.gas_delete = async function(req, res) {
     res.send(`{"error": Error deleting ${err}}`);
     }
    };
-// Handle Gas update form on PUT.
-exports.gas_update_put = async function(req, res) {
+// Handle ant update form on PUT.
+exports.ant_update_put = async function(req, res) {
  console.log(`update on id ${req.params.id} with body
 ${JSON.stringify(req.body)}`)
  try {
- let toUpdate = await Gas.findById( req.params.id)
+ let toUpdate = await Ant.findById( req.params.id)
  // Do updates of properties
- if(req.body.gas_type)
- toUpdate.gas_type = req.body.gas_type;
- if(req.body.quantity) toUpdate.quantity = req.body.quantity;
- if(req.body.cost) toUpdate.cost = req.body.cost;
+ if(req.body.count)
+ toUpdate.count = req.body.count;
+ if(req.body.type) toUpdate.type = req.body.type;
+ if(req.body.size) toUpdate.size = req.body.size;
  let result = await toUpdate.save();
  console.log("Sucess " + result)
  res.send(result)
@@ -67,11 +67,11 @@ failed`);
  }
 };
 
-// List of all Gass
-exports.gas_list = async function (req, res) {
+// List of all ants
+exports.ant_list = async function (req, res) {
     try {
-        theGas = await Gas.find();
-        res.send(theGas);
+        theAnt = await Ant.find();
+        res.send(theAnt);
     } catch (err) {
         res.status(500);
         res.send(`{"error": ${err}}`);
@@ -80,12 +80,12 @@ exports.gas_list = async function (req, res) {
 
 // VIEWS
 // Handle a show all view
-exports.gas_view_all_Page = async function (req, res) {
+exports.ant_view_all_Page = async function (req, res) {
     try {
-        theGas = await Gas.find();
-        res.render('gas', {
-            title: 'Gas Search Results',
-            results: theGas
+        theAnt = await Ant.find();
+        res.render('ant', {
+            title: 'ant Search Results',
+            results: theAnt
         });
     } catch (err) {
         res.status(500);
@@ -93,25 +93,25 @@ exports.gas_view_all_Page = async function (req, res) {
     }
 };
 // Handle a show one view with id specified by query
-exports.gas_view_one_Page = async function(req, res) {
+exports.ant_view_one_Page = async function(req, res) {
     console.log("single view for id " + req.query.id)
     try{
-    result = await Gas.findById( req.query.id)
-    res.render('gasdetail',
-   { title: 'Gas Detail', toShow: result });
+    result = await Ant.findById( req.query.id)
+    res.render('antdetail',
+   { title: 'ant Detail', toShow: result });
     }
     catch(err){
     res.status(500)
     res.send(`{'error': '${err}'}`);
     }
    };
-// Handle building the view for creating a gas.
+// Handle building the view for creating a ant.
 // No body, no in path parameter, no query.
 // Does not need to be async
-exports.gas_create_Page = function(req, res) {
+exports.ant_create_Page = function(req, res) {
     console.log("create view")
     try{
-    res.render('gascreate', { title: 'Gas Create'});
+    res.render('antcreate', { title: 'ant Create'});
     }
     catch(err){
     res.status(500)
@@ -119,13 +119,13 @@ exports.gas_create_Page = function(req, res) {
     }
    };
 
-// Handle building the view for updating a gas.
+// Handle building the view for updating a ant.
 // query provides the id
-exports.gas_update_Page = async function(req, res) {
+exports.ant_update_Page = async function(req, res) {
     console.log("update view for item "+req.query.id)
     try{
-    let result = await Gas.findById(req.query.id)
-    res.render('gasupdate', { title: 'Gas Update', toShow: result });
+    let result = await Ant.findById(req.query.id)
+    res.render('antupdate', { title: 'ant Update', toShow: result });
     }
     catch(err){
     res.status(500)
@@ -133,11 +133,11 @@ exports.gas_update_Page = async function(req, res) {
     }
    };
 // Handle a delete one view with id from query
-exports.gas_delete_Page = async function(req, res) {
+exports.ant_delete_Page = async function(req, res) {
     console.log("Delete view for id " + req.query.id)
     try{
-    result = await Gas.findById(req.query.id)
-    res.render('gasdelete', { title: 'Gas Delete', toShow:
+    result = await Ant.findById(req.query.id)
+    res.render('antdelete', { title: 'ant Delete', toShow:
    result });
     }
     catch(err){

@@ -6,32 +6,32 @@ block content
   if(toShow == null)
     h2 No instance to delete
   else
-    - let gasid = toShow._id
-    - let gas_type = toShow.gas_type
-    - let gasquantity = toShow.quantity
-    - let gascost = toShow.cost
-    - let actionid = "/resource/gas/" + gasid
+    - let antid = toShow._id
+    - let count = toShow.count
+    - let anttype = toShow.type
+    - let antsize = toShow.size
+    - let actionid = "/resource/ant/" + antid
     script let actionid = "#{actionid}"
     div
     div.row
-    div(class='gasAttr mr-3') Gas ID is: 
-      span(style="color:red") #{gasid}
+    div(class='antAttr mr-3') ant ID is: 
+      span(style="color:red") #{antid}
     div.row
-    div(class='gasAttr mr-3') Gas Type is: 
-      span(style="color:red") #{gas_type}
+    div(class='antAttr mr-3') ant Type is: 
+      span(style="color:red") #{anttype}
     div.row
-    div(class='gasAttr mr-3') Gas quantity is: 
-      span(style="color:red") #{gasquantity}
+    div(class='antAttr mr-3') ant size is: 
+      span(style="color:red") #{antsize}
     div.row
-    div(class='gasAttr mr-3') Gas Cost is: 
-      span(style="color:red") #{gascost}
+    div(class='antAttr mr-3') ant count is: 
+      span(style="color:red") #{count}
     button(class="btn btn-danger m-2" onclick="deleteOnid()") Delete
     button(class="btn btn-secondary m-2" onclick="cancel()") Cancel
 
   script.
     function cancel() {
-    // Go back to the home page for the gas collection
-    window.location.href='/gas'
+    // Go back to the home page for the ant collection
+    window.location.href='/ant'
     }
     function deleteOnid() {
     console.log("starting delete")
@@ -42,7 +42,7 @@ block content
     return resp.json(); // or resp.text() or whatever the server sends
     }).then((body) => {
     alert("Delete succeded")
-    window.location.href='/gas'
+    window.location.href='/ant'
     // TODO handle body
     }).catch((error) => {
     // TODO handle error

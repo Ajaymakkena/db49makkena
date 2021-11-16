@@ -1,0 +1,38 @@
+extends layout
+
+block content
+ h1= title
+
+  if(toShow == null)
+    h2 No instance to detail
+  else
+    - let antid = toShow._id
+    - let count = toShow.count
+    - let anttype = toShow.type
+    - let antsize = toShow.size
+    - let actionid = "/resource/ant/" + antid
+    script let actionid = "#{actionid}"
+    div
+    div.row
+    div(class='antAttr mr-3') ant ID is: 
+      span(style="color:red") #{antid}
+    div.row
+    div(class='antAttr mr-3') ant type is: 
+      span(style="color:red") #{anttype}
+    div.row
+    div(class='antAttr mr-3') ant count is: 
+      span(style="color:red") #{count}
+    div.row
+    div(class='antAttr mr-3') ant size is:
+      span(style="color:red") #{antsize}
+    button(class="btn btn-primary m-2" onclick="detailOnid()") Goback
+    button(class="btn btn-danger m-2" onclick="cancel()") Cancel
+
+  script.
+    function cancel() {
+    // Go back to the home page for the ant collection
+    window.location.href='/ant'
+    }
+    function detailOnid() {
+    window.location.href='/ant'
+    }
