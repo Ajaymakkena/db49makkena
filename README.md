@@ -1,11 +1,11 @@
-# db06manyam
+# db49makkena
 
 Webapps Assignment-11
 
-[Hosted At](https://db06manyam.herokuapp.com/)
+[Hosted At](https://db49makkena.herokuapp.com/)
 
-Class Gas
+Class ant
 
-gas_type(string)
-quantity(number)
-cost(number)
+count(number)
+type(string)
+size(string)
